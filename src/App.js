@@ -1,25 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import {Link} from 'react-router-dom'
+import {AssignmentList} from "./components/AssignmentList";
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import {
+    Typography,
+    AppBar,
+    CssBaseline,
+    Toolbar,
+    Container
+} from "@mui/material";
+import Button from "@mui/material/Button";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <CssBaseline/>
+            <AppBar position="relative">
+                <Toolbar>
+                    <AssignmentIcon/>
+                    <Typography variant="h6">
+                        Assignments
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <main>
+                <div>
+                    <Container maxWidth="sm">
+                        <Typography sx={{mt: 2}} variant="h3" align="center" color="textPrimary" gutterBottom>
+                            Assignments
+                        </Typography>
+                        <Button component={Link} to="/addAssignment" variant="contained">Add assignment</Button>
+                        <h1>List of assignments</h1>
+                        <AssignmentList/>
+                        <Button component={Link} to="/assignments" variant="contained" sx={{mb: 1}}>View all assignments</Button>
+                    </Container>
+                </div>
+            </main>
+        </>
+    );
 }
 
 export default App;
