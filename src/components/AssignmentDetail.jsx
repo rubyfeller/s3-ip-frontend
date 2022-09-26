@@ -1,18 +1,18 @@
 import React from 'react';
-import AssignmentCard from '../components/AssignmentCard'
+import {AssignmentCard} from '../components/AssignmentCard'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Navbar from "./Navbar";
-import {Container, Grid} from "@mui/material";
+import {Box, Container, Grid} from "@mui/material";
 import {useParams} from "react-router";
 import {Link} from "react-router-dom";
-import { AssignmentContainer } from '../containers/AssignmentContainer';
+import {AssignmentContainer} from '../containers/AssignmentContainer';
 
 export const AssignmentDetail = () => {
     const id = useParams();
     const assignment = AssignmentContainer(id);
-    return (
-        <>
+    if (assignment !== 0) {
+        return (
             <div>
                 <main>
                     <Navbar/>
@@ -28,11 +28,20 @@ export const AssignmentDetail = () => {
                                 Assignment {assignment.id}
                             </Typography>
                             <AssignmentCard key={assignment.id} assignment={assignment}/>
-                            <Button component={Link} to={`/assignments`} variant="contained">Go back</Button>
+                            <Button component={Link} to={`/`} variant="contained">Go back</Button>
                         </Grid>
                     </Container>
                 </main>
             </div>
-        </>
-    );
+        );
+    } else {
+        return (
+            <Box textAlign="center">
+                <Typography sx={{mt: 2}} variant="h5" gutterBottom>Assignment not
+                    found.
+                    The assignment might be deleted</Typography>
+                <Button component={Link} to={`/`} variant="contained">Go back</Button>
+            </Box>
+        )
+    }
 }

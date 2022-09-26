@@ -10,6 +10,7 @@ import { Assignments } from "./components/Assignments";
 import { AssignmentDetail } from "./components/AssignmentDetail";
 import PageNotFound from "./PageNotFound";
 import AssignmentDeleteContainer from "./containers/AssignmentDeleteContainer";
+import {AssignmentEdit} from "./components/AssignmentEdit";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     {
         path: "/assignments",
         element: <Assignments/>,
+    },
+    {
+        path: "/assignment/edit/:id",
+        element: <AssignmentEdit/>,
     },
     {
         path: "/assignment/:id",

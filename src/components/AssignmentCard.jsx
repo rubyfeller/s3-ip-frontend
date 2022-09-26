@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {Card, CardActions, CardContent, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 
-const AssignmentCard = ({assignment: {id, title, description, userId}}) => {
+export const AssignmentCard = ({assignment: {id, title, description, userId}}) => {
     return (
         <Card key={"id"} sx={{minWidth: 275, mb: 2}}>
             <CardContent>
@@ -20,11 +20,9 @@ const AssignmentCard = ({assignment: {id, title, description, userId}}) => {
             <CardActions>
                 <Button component={Link} to={`/assignment/${id}`} size="small" variant="outlined">More
                     information</Button>
-                <Button size="small" variant="outlined">Edit assignment</Button>
+                <Button component={Link} to={`/assignment/edit/${id}`} size="small" variant="outlined">Edit assignment</Button>
                 <Button component={Link} to={`/assignment/delete/${id}`} size="small" variant="contained" color="error">Delete</Button>
             </CardActions>
         </Card>
     );
 }
-
-export default AssignmentCard;

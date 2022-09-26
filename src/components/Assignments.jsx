@@ -1,15 +1,32 @@
-import React from 'react';
-import AssignmentCard from '../components/AssignmentCard'
+import React, {useEffect, useState} from 'react';
+import {AssignmentCard} from '../components/AssignmentCard'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Navbar from "./Navbar";
 import {Container, Grid} from "@mui/material";
 import {Link} from "react-router-dom";
-import { AssignmentsContainer } from "../containers/AssignmentsContainer";
+import {LoadError} from "./LoadError";
+import api from "../api";
 
 export const Assignments = () => {
-    const assignments = AssignmentsContainer();
-        return (<>
+
+    const [assignments, setAssignments] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        api.get(`assignment/all`, {timeout: 1000})
+            .then(res => {
+                setAssignments(res.data);
+            }).catch(err => {
+            if (err.code === 'ECONNABORTED') {
+                setError('assignments could not be loaded');
+            }
+            console.log(err.message)
+        })
+    }, [])
+
+    if (assignments.length !== 0) {
+        return (
             <div>
                 <main>
                     <Navbar/>
@@ -31,5 +48,20 @@ export const Assignments = () => {
                     </Container>
                 </main>
             </div>
-        </>);
+        );
+    } else if (error) {
+        return (
+            <div>
+                <Navbar/>
+                <LoadError errorMessage={error}/>
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <Navbar/>
+                <LoadError errorMessage="no assignments found, have you added one yet?"/>
+            </div>
+        )
     }
+}
