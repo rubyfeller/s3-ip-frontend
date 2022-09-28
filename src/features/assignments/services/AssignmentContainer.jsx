@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import api from '../api';
+import api from '../../../lib/api';
 import {useParams} from "react-router";
 
 export const AssignmentContainer = () => {

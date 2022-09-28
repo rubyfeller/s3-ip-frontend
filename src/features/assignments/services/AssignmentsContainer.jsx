@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import api from '../api';
+import api from '../../../lib/api';
 
 export const AssignmentsContainer = () => {
     const [assignments, setAssignments] = useState([]);
@@ -8,9 +8,11 @@ export const AssignmentsContainer = () => {
         api.get(`assignment/all`)
             .then(res => {
                 setAssignments(res.data);
+                console.log(assignments);
             }).catch(err => {
             setError(err.response);
             console.log(err.response)
         })
     }, [])
+    return assignments;
 }

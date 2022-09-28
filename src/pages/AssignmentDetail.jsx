@@ -1,12 +1,11 @@
 import React from 'react';
-import {AssignmentCard} from '../components/AssignmentCard'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Navbar from "./Navbar";
+import Navbar from "../layouts/Navbar";
 import {Box, Container, Grid} from "@mui/material";
 import {useParams} from "react-router";
 import {Link} from "react-router-dom";
-import {AssignmentContainer} from '../containers/AssignmentContainer';
+import {AssignmentContainer, AssignmentCard} from '../features/assignments';
 
 export const AssignmentDetail = () => {
     const id = useParams();

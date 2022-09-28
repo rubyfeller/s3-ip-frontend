@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import api from '../api';
+import React, {useEffect} from 'react';
+import api from '../../../lib/api';
 import {useParams} from "react-router";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
-export default function AssignmentDeleteContainer() {
+export const AssignmentDeleteContainer = () => {
     const {id} = useParams();
     const navigate = useNavigate();
 
@@ -12,8 +12,7 @@ export default function AssignmentDeleteContainer() {
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                    navigate("/assignments");
+                navigate("/assignments");
             })
     }, [])
-
 }

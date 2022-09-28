@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Grid, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import api from "../api";
-import Navbar from "./Navbar";
+import api from "../lib/api";
+import Navbar from "../layouts/Navbar";
 import Typography from "@mui/material/Typography";
 import {Link, useNavigate} from "react-router-dom";
 
@@ -60,7 +60,7 @@ export const AssignmentAdd = () => {
                     <form onSubmit={handleSubmit}>
                         <TextField
                             onChange={onTitleChange}
-                            error={submitted && !assignment.title ? true : false}
+                            error={!!(submitted && !assignment.title)}
                             helperText={submitted && !assignment.title ? "Please enter a title" : null}
                             style={{width: "200px", margin: "5px"}}
                             type="text"
@@ -69,7 +69,7 @@ export const AssignmentAdd = () => {
                         />
                         <TextField
                             onChange={onDescriptionChange}
-                            error={submitted && !assignment.description ? true : false}
+                            error={!!(submitted && !assignment.description)}
                             helperText={submitted && !assignment.description ? "Please enter a description" : null}
                             style={{width: "200px", margin: "5px"}}
                             type="text"
@@ -78,7 +78,7 @@ export const AssignmentAdd = () => {
                         />
                         <TextField
                             onChange={onUserIdChange}
-                            error={submitted && !assignment.userId ? true : false}
+                            error={!!(submitted && !assignment.userId)}
                             helperText={submitted && !assignment.userId ? "Please enter a user ID" : null}
                             style={{width: "200px", margin: "5px"}}
                             type="number"

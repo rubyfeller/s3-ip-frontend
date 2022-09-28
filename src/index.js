@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import './index.css';
+import './assets/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ThemeProvider, createTheme} from "@mui/material";
-import { AssignmentAdd } from "./components/AssignmentAdd";
-import { Assignments } from "./components/Assignments";
-import { AssignmentDetail } from "./components/AssignmentDetail";
+import {AssignmentAdd} from "./pages/AssignmentAdd";
+import {Assignments} from "./pages/Assignments";
+import {AssignmentDetail} from "./pages/AssignmentDetail";
 import PageNotFound from "./PageNotFound";
-import AssignmentDeleteContainer from "./containers/AssignmentDeleteContainer";
-import {AssignmentEdit} from "./components/AssignmentEdit";
+import {AssignmentDeleteContainer} from "./features/assignments";
+import {AssignmentEdit} from "./pages/AssignmentEdit";
 
 const router = createBrowserRouter([
     {
@@ -54,11 +54,9 @@ const theme = createTheme({
 })
 
 root.render(
-    <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <RouterProvider router={router}/>
-        </ThemeProvider>
-    </React.StrictMode>
+    <ThemeProvider theme={theme}>
+        <RouterProvider router={router}/>
+    </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

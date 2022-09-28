@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {AssignmentCard} from '../components/AssignmentCard'
+import {AssignmentCard} from '../features/assignments';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Navbar from "./Navbar";
+import Navbar from "../layouts/Navbar";
 import {Container, Grid} from "@mui/material";
 import {Link} from "react-router-dom";
 import {LoadError} from "./LoadError";
-import api from "../api";
+import api from "../lib/api";
 
 export const Assignments = () => {
 

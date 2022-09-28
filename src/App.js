@@ -1,6 +1,6 @@
-import './App.css';
+import './assets/App.css';
 import {Link} from 'react-router-dom'
-import {AssignmentList} from "./components/AssignmentList";
+import {AssignmentList} from "./features/assignments";
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import {
     Typography,
