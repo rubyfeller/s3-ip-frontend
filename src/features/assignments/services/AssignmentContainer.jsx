@@ -1,15 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import api from '../../../lib/api';
-import {useParams} from "react-router";
 
-export const AssignmentContainer = () => {
-    const [assignment, setAssignment] = useState(0);
-    let { id } = useParams();
-    useEffect(() => {
-        api.get(`assignment/${id}`)
+export const AssignmentContainer = (id) => {
+    const [data, setData] = useState({});
+    const [error, setError] = useState("");
+
+    const getAssignment = () => {
+        console.log(id.id);
+        api.get(`assignment/${id.id}`)
             .then(res => {
-                setAssignment(res.data);
-            })
-    }, [])
-    return assignment;
+                setData(res.data);
+                console.log(data);
+            }).catch(err => {
+            setError(err.response);
+            console.log(err.response)
+        })
+    };
+
+    useEffect( () => {
+        getAssignment();
+    }, []);
+
+    return {getAssignment, data, error};
 }

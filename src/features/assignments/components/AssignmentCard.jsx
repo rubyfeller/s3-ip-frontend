@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 
 export const AssignmentCard = ({assignment: {id, title, description, userId}}) => {
     return (
-        <Card key={"id"} sx={{minWidth: 275, mb: 2}}>
+        <Card sx={{minWidth: 275, mb: 2}}>
             <CardContent>
                 <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
                     Assignment {id}
@@ -20,6 +20,7 @@ export const AssignmentCard = ({assignment: {id, title, description, userId}}) =
             <CardActions>
                 <Button component={Link} to={`/assignment/${id}`} size="small" variant="outlined">More
                     information</Button>
+                <Button component={Link} to={`/assignment/${id}`} size="small" variant="outlined">Accept</Button>
                 <Button component={Link} to={`/assignment/edit/${id}`} size="small" variant="outlined">Edit</Button>
                 <Button component={Link} to={`/assignment/delete/${id}`} size="small" variant="contained" color="error">Delete</Button>
             </CardActions>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {AssignmentCard} from '../features/assignments';
+import {AssignmentCard, useAxiosFetch} from '../features/assignments';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Navbar from "../layouts/Navbar";
@@ -7,25 +7,40 @@ import {Container, Grid} from "@mui/material";
 import {Link} from "react-router-dom";
 import {LoadError} from "./LoadError";
 import api from "../lib/api";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllAssignments, getAssignmentsStatus, getAssignmentsError, fetchAssignments} from "../features/assignments/AssignmentSlice";
 
 export const Assignments = () => {
 
     const [assignments, setAssignments] = useState([]);
-    const [error, setError] = useState(null);
+
+    const {data, loading, error} = useAxiosFetch({
+        method: "GET",
+        url: `/assignment/all`
+    });
 
     useEffect(() => {
-        api.get(`assignment/all`, {timeout: 1000})
-            .then(res => {
-                setAssignments(res.data);
-            }).catch(err => {
-            if (err.code === 'ECONNABORTED') {
-                setError('assignments could not be loaded');
-            }
-            console.log(err.message)
-        })
-    }, [])
+        if (loading) {
+            console.log("Getting assignments");
+        }
+    }, [loading]);
 
-    if (assignments.length !== 0) {
+    useEffect(() => {
+        if (data) {
+            setAssignments(data);
+            console.log(data);
+        } else {
+            setAssignments(null);
+        }
+    }, [data]);
+
+    useEffect(() => {
+        if (error) {
+            console.log(error);
+        }
+    }, [error]);
+
+    if (assignments.length > 0) {
         return (
             <div>
                 <main>
@@ -41,8 +56,8 @@ export const Assignments = () => {
                             <Typography sx={{mt: 2}} variant="h3" align="center" color="textPrimary" gutterBottom>
                                 Assignments
                             </Typography>
-                            {assignments.map((assignment) => (
-                                <AssignmentCard key={assignment.id} assignment={assignment}/>))}
+                            {assignments.map((assignment, index) => (
+                                <AssignmentCard key={index} assignment={assignment}/>))}
                             <Button component={Link} to={`/`} variant="contained">Go back</Button>
                         </Grid>
                     </Container>
@@ -51,17 +66,12 @@ export const Assignments = () => {
         );
     } else if (error) {
         return (
-            <div>
-                <Navbar/>
-                <LoadError errorMessage={error}/>
-            </div>
+            <LoadError errorMessage={error}/>
         )
-    } else {
+    }
+    else {
         return (
-            <div>
-                <Navbar/>
-                <LoadError errorMessage="no assignments found, have you added one yet?"/>
-            </div>
+            <Typography>Something went wrong. Are there any assignments added?</Typography>
         )
     }
 }

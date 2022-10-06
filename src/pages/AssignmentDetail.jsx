@@ -1,16 +1,45 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Navbar from "../layouts/Navbar";
 import {Box, Container, Grid} from "@mui/material";
 import {useParams} from "react-router";
 import {Link} from "react-router-dom";
-import {AssignmentContainer, AssignmentCard} from '../features/assignments';
+import {AssignmentContainer, AssignmentCard, useAxiosFetch} from '../features/assignments';
+import {LoadError} from "./LoadError";
 
 export const AssignmentDetail = () => {
     const id = useParams();
-    const assignment = AssignmentContainer(id);
-    if (assignment !== 0) {
+
+    const [assignment, setAssignment] = useState([]);
+
+    const {data, loading, error} = useAxiosFetch({
+        method: "GET",
+        url: `/assignment/${id.id}`
+    });
+
+    useEffect(() => {
+        if (loading) {
+            console.log("Getting assignment");
+        }
+    }, [loading]);
+
+    useEffect(() => {
+        if (data) {
+            setAssignment(data);
+            console.log(data);
+        } else {
+            setAssignment(null);
+        }
+    }, [data]);
+
+    useEffect(() => {
+        if (error) {
+            console.log(error);
+        }
+    }, [error]);
+
+    if (data.id) {
         return (
             <div>
                 <main>
@@ -35,12 +64,10 @@ export const AssignmentDetail = () => {
         );
     } else {
         return (
-            <Box textAlign="center">
-                <Typography sx={{mt: 2}} variant="h5" gutterBottom>Assignment not
-                    found.
-                    The assignment might be deleted</Typography>
-                <Button component={Link} to={`/`} variant="contained">Go back</Button>
-            </Box>
+            <div>
+                <Navbar/>
+                <LoadError errorMessage="Assignment could not be loaded"/>
+            </div>
         )
     }
 }

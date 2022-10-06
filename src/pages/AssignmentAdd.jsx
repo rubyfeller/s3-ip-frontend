@@ -5,13 +5,18 @@ import api from "../lib/api";
 import Navbar from "../layouts/Navbar";
 import Typography from "@mui/material/Typography";
 import {Link, useNavigate} from "react-router-dom";
+import {addAssignment} from "../features/assignments/AssignmentSlice";
+import {useDispatch} from "react-redux";
 
 
 export const AssignmentAdd = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [assignment, setAssignment] = useState({title: "", description: "", userId: null});
     const [submitted, setSubmitted] = useState(null);
     const [error, setError] = useState(null);
+    const [addRequestStatus, setAddRequeststatus] = useState('idle');
 
     const onTitleChange = (event) => {
         setAssignment((prevState) => ({
@@ -37,16 +42,21 @@ export const AssignmentAdd = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         setSubmitted(true);
-        if (assignment.title && assignment.description && assignment.userId != null) {
-            api.post(`assignment/add`, assignment)
-                .then(res => {
-                    navigate("/");
-                    console.log(res);
-                    console.log(res.data);
-                }).catch(err => {
-                setError(err);
-                console.log(err.response);
-            })
+
+        const canSave = [assignment.title, assignment.description, assignment.userId].every(Boolean) && addRequestStatus === 'idle';
+
+        if (canSave) {
+            try {
+                setAddRequeststatus('pending');
+                dispatch(addAssignment(assignment));
+                navigate("../");
+            }
+            catch (err) {
+                console.log(err);
+            }
+            finally {
+                setAddRequeststatus('idle');
+            }
         }
     }
 
