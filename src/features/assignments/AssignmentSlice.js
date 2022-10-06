@@ -9,26 +9,6 @@ const initialState = {
     error: null
 }
 
-export const fetchAssignments = createAsyncThunk('assignment/all', async () =>
-    api.get(`assignment/all`)
-        .then(res => {
-            return [...res.data]
-        }).catch(err => {
-        console.log(err.message);
-        return err.message;
-    })
-)
-
-export const fetchAssignment = createAsyncThunk('assignment/${id}', async (id) =>
-    api.get(`assignment/${id}`)
-        .then(res => {
-            return res.data;
-        }).catch(err => {
-        console.log(err.message);
-        return err.message;
-    })
-)
-
 export const addAssignment = createAsyncThunk('assignment/add', async (initialAssignment) =>
     api.post(`assignment/add`, initialAssignment)
         .then(res => {

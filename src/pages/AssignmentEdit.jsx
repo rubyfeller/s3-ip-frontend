@@ -8,7 +8,6 @@ import {Link, useNavigate} from "react-router-dom";
 import {useParams} from "react-router";
 import {AssignmentContainer, useAxiosFetch} from "../features/assignments";
 import {LoadError} from "./LoadError";
-import {AssignmentUpdateContainer} from "../features/assignments/services/AssignmentUpdateContainer";
 
 
 export const AssignmentEdit = () => {

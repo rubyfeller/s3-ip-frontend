@@ -18,7 +18,7 @@ export const useAxiosFetch = (axiosParams) => {
             dispatch(addAssignments(data));
 
         } catch (error) {
-            setError(error);
+            setError(error.message);
             setLoading(false);
         } finally {
             setLoading(false);

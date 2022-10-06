@@ -16,7 +16,8 @@ export const Assignments = () => {
 
     const {data, loading, error} = useAxiosFetch({
         method: "GET",
-        url: `/assignment/all`
+        url: `/assignment/all`,
+        timeout: 1000
     });
 
     useEffect(() => {
@@ -37,6 +38,7 @@ export const Assignments = () => {
     useEffect(() => {
         if (error) {
             console.log(error);
+            alert(error);
         }
     }, [error]);
 

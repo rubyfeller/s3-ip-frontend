@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {AssignmentCard} from './AssignmentCard';
-import {AssignmentsContainer} from '../services/AssignmentsContainer';
 import {LoadError} from "../../../pages/LoadError";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAssignments, getAllAssignments, getAssignmentsError, getAssignmentsStatus} from "../AssignmentSlice";
@@ -12,7 +11,8 @@ export const AssignmentList = () => {
 
     const {data, loading, error} = useAxiosFetch({
         method: "GET",
-        url: `/assignment/all`
+        url: `/assignment/all`,
+        timeout: 2000
     });
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export const AssignmentList = () => {
         }
     }, [error]);
 
-    if (assignments.length > 0) {
+    if (assignments.length > 1) {
         return (
                 <div>
                     {assignments.map((assignment, index) => (
