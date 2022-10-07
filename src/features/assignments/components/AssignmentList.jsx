@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AssignmentCard} from './AssignmentCard';
 import {LoadError} from "../../../pages/LoadError";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchAssignments, getAllAssignments, getAssignmentsError, getAssignmentsStatus} from "../AssignmentSlice";
 import Typography from "@mui/material/Typography";
 import {useAxiosFetch} from "../hooks/useAxiosFetch";
 
@@ -36,7 +34,7 @@ export const AssignmentList = () => {
         }
     }, [error]);
 
-    if (assignments.length > 1) {
+    if (assignments.length > 0) {
         return (
                 <div>
                     {assignments.map((assignment, index) => (

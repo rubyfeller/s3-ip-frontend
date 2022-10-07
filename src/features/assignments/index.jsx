@@ -1,4 +1,3 @@
-import React from 'react';
 export {AssignmentContainer} from "../assignments/services/AssignmentContainer";
 export {AssignmentDeleteContainer} from "../assignments/services/AssignmentDeleteContainer";
 

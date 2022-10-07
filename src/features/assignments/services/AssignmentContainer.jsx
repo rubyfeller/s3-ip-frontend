@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import api from '../../../lib/api';
 
 export const AssignmentContainer = (id) => {
@@ -19,6 +19,7 @@ export const AssignmentContainer = (id) => {
 
     useEffect( () => {
         getAssignment();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return {getAssignment, data, error};

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Grid, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import api from "../lib/api";
 import Navbar from "../layouts/Navbar";
 import Typography from "@mui/material/Typography";
 import {Link, useNavigate} from "react-router-dom";
@@ -15,8 +14,9 @@ export const AssignmentAdd = () => {
 
     const [assignment, setAssignment] = useState({title: "", description: "", userId: null});
     const [submitted, setSubmitted] = useState(null);
-    const [error, setError] = useState(null);
     const [addRequestStatus, setAddRequeststatus] = useState('idle');
+
+    const error = "";
 
     const onTitleChange = (event) => {
         setAssignment((prevState) => ({

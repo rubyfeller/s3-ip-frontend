@@ -20,7 +20,7 @@ export const addAssignment = createAsyncThunk('assignment/add', async (initialAs
     })
 )
 
-export const updateAssignment = createAsyncThunk('assignment/update/${id}', async (updatedAssignment, id) =>
+export const updateAssignment = createAsyncThunk('assignment/update/', async (updatedAssignment, id) =>
     api.put(`assignment/update/${id}`, updatedAssignment)
         .then(res => {
             console.log(res.data);

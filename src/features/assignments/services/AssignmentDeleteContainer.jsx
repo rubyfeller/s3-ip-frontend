@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import api from '../../../lib/api';
 import {useParams} from "react-router";
 import {useNavigate} from 'react-router-dom';
@@ -14,5 +14,5 @@ export const AssignmentDeleteContainer = () => {
                 console.log(res.data);
                 navigate("../");
             })
-    }, [])
+    }, [id, navigate])
 }

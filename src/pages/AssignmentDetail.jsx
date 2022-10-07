@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Navbar from "../layouts/Navbar";
-import {Box, Container, Grid} from "@mui/material";
+import {Container, Grid} from "@mui/material";
 import {useParams} from "react-router";
 import {Link} from "react-router-dom";
-import {AssignmentContainer, AssignmentCard, useAxiosFetch} from '../features/assignments';
+import {AssignmentCard, useAxiosFetch} from '../features/assignments';
 import {LoadError} from "./LoadError";
 
 export const AssignmentDetail = () => {

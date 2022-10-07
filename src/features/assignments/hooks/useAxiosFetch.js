@@ -27,6 +27,7 @@ export const useAxiosFetch = (axiosParams) => {
 
     useEffect(() => {
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { data, error, loading, fetchData };

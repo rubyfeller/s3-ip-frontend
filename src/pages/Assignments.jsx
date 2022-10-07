@@ -6,9 +6,6 @@ import Navbar from "../layouts/Navbar";
 import {Container, Grid} from "@mui/material";
 import {Link} from "react-router-dom";
 import {LoadError} from "./LoadError";
-import api from "../lib/api";
-import {useDispatch, useSelector} from "react-redux";
-import {getAllAssignments, getAssignmentsStatus, getAssignmentsError, fetchAssignments} from "../features/assignments/AssignmentSlice";
 
 export const Assignments = () => {
 
@@ -59,7 +56,8 @@ export const Assignments = () => {
                                 Assignments
                             </Typography>
                             {assignments.map((assignment, index) => (
-                                <AssignmentCard key={index} assignment={assignment}/>))}
+                                <AssignmentCard key={index} assignment={assignment}/>
+                            ))}
                             <Button component={Link} to={`/`} variant="contained">Go back</Button>
                         </Grid>
                     </Container>

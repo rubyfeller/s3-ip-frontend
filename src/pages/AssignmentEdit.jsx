@@ -6,7 +6,7 @@ import Navbar from "../layouts/Navbar";
 import Typography from "@mui/material/Typography";
 import {Link, useNavigate} from "react-router-dom";
 import {useParams} from "react-router";
-import {AssignmentContainer, useAxiosFetch} from "../features/assignments";
+import {AssignmentContainer} from "../features/assignments";
 import {LoadError} from "./LoadError";
 
 
