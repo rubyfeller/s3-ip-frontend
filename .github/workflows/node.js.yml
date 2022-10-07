@@ -32,7 +32,7 @@ jobs:
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-          image: rubyfeller/restapi
+          image: rubyfeller/s3-ip-frontend
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
