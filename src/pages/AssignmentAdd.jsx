@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Grid, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import Navbar from "../layouts/Navbar";
+import {Navbar} from "../layouts/Navbar";
 import Typography from "@mui/material/Typography";
 import {Link, useNavigate} from "react-router-dom";
 import {addAssignment} from "../features/assignments/AssignmentSlice";

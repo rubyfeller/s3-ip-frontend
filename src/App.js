@@ -10,19 +10,12 @@ import {
     Container
 } from "@mui/material";
 import Button from "@mui/material/Button";
+import {Navbar} from "./layouts/Navbar";
 
 function App() {
     return (
         <>
-            <CssBaseline/>
-            <AppBar position="relative">
-                <Toolbar>
-                    <AssignmentIcon/>
-                    <Typography variant="h6">
-                        Assignments
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            <Navbar />
             <main>
                 <div>
                     <Container maxWidth="sm">

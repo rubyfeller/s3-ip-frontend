@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Container, Grid, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import api from "../lib/api";
-import Navbar from "../layouts/Navbar";
+import {Navbar} from "../layouts/Navbar";
 import Typography from "@mui/material/Typography";
 import {Link, useNavigate} from "react-router-dom";
 import {useParams} from "react-router";
-import {AssignmentContainer} from "../features/assignments";
+import {useAxiosFetch} from "../features/assignments";
 import {LoadError} from "./LoadError";
+import {useDispatch} from "react-redux";
+import {updateAssignment} from "../features/assignments/AssignmentSlice";
 
 
 export const AssignmentEdit = () => {
@@ -15,20 +16,38 @@ export const AssignmentEdit = () => {
 
     let id = useParams();
 
-    const [assignment, setAssignment] = useState({});
     const [submitted, setSubmitted] = useState(false);
 
-    const {data, error} = AssignmentContainer(id);
+    const [assignment, setAssignment] = useState([]);
+
+    const {data, loading, error} = useAxiosFetch({
+        method: "GET",
+        url: `/assignment/${id.id}`,
+        timeout: 1000
+    });
+
+    const dispatch = useDispatch();
+    const [updateRequestStatus, setUpdateRequeststatus] = useState('idle');
+
+    useEffect(() => {
+        if (loading) {
+            console.log("Getting assignment");
+        }
+    }, [loading]);
 
     useEffect(() => {
         if (data) {
             setAssignment(data);
+            console.log(data);
+        } else {
+            setAssignment(null);
         }
     }, [data]);
 
     useEffect(() => {
         if (error) {
             console.log(error);
+            alert(error);
         }
     }, [error]);
 
@@ -57,15 +76,19 @@ export const AssignmentEdit = () => {
         event.preventDefault();
         setSubmitted(true);
 
-        api.put(`assignment/update/${id.id}`, assignment)
-            .then(res => {
-                console.log("Updated successfully!");
-                navigate("/");
-                console.log(res);
-                console.log(res.data);
-            }).catch(err => {
-            console.log(err.response);
-        })
+        const canSave = [assignment.title, assignment.description, assignment.userId].every(Boolean) && updateRequestStatus === 'idle';
+
+        if (canSave) {
+            try {
+                setUpdateRequeststatus('pending');
+                dispatch(updateAssignment(assignment));
+                navigate("../");
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setUpdateRequeststatus('idle');
+            }
+        }
     }
 
     if (assignment) {
@@ -119,7 +142,7 @@ export const AssignmentEdit = () => {
                             </Button>
                             <br/>
                             <br/>
-                            <Button component={Link} to={`/`} type="submit" variant="outlined" color="primary">
+                            <Button component={Link} to={`/`} variant="outlined" color="primary">
                                 Return
                             </Button>
                         </form>
@@ -129,8 +152,7 @@ export const AssignmentEdit = () => {
                 </Container>
             </div>
         )
-    }
-    else {
+    } else {
         return (
             <LoadError errorMessage="something went wrong."/>
         )

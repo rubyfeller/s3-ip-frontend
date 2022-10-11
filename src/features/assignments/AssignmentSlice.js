@@ -9,7 +9,7 @@ const initialState = {
     error: null
 }
 
-export const addAssignment = createAsyncThunk('assignment/add', async (initialAssignment) =>
+export const addAssignment = createAsyncThunk('assignment/add', async (initialAssignment) => {
     api.post(`assignment/add`, initialAssignment)
         .then(res => {
             console.log(res.data);
@@ -18,16 +18,29 @@ export const addAssignment = createAsyncThunk('assignment/add', async (initialAs
         console.log(err.response);
         return err.response;
     })
-)
+});
 
-export const updateAssignment = createAsyncThunk('assignment/update/', async (updatedAssignment, id) =>
-    api.put(`assignment/update/${id}`, updatedAssignment)
+export const updateAssignment = createAsyncThunk('assignment/update/', async (updatedAssignment) => {
+    api.put(`assignment/update/${updatedAssignment.id}`, updatedAssignment)
         .then(res => {
             console.log(res.data);
+            return res.data;
         }).catch(err => {
         console.log(err.response);
+        return err.response;
     })
-)
+});
+
+export const deleteAssignment = createAsyncThunk('assignment/delete/', async (id) => {
+    api.delete(`assignment/delete/${id}`)
+        .then(res => {
+            console.log(res.data);
+            return res.data;
+        }).catch(err => {
+        console.log(err.response);
+        return err.response;
+    })
+});
 
 const assignmentSlice = createSlice({
     name: "assignments",
@@ -35,18 +48,29 @@ const assignmentSlice = createSlice({
     reducers: {
         addAssignments: (state, {payload}) => {
             state.assignments = payload;
+        },
+        updateAssignment: (state, {payload}) => {
+            state.assignment = payload;
         }
     },
     extraReducers(builder) {
         builder.addCase(addAssignment.fulfilled, (state, action) => {
             state.assignments.push(action.payload);
         })
+            .addCase(updateAssignment.fulfilled, (state, action) => {
+                if (!action.payload?.id) {
+                    console.log('Update could not complete')
+                }
+            })
+            .addCase(deleteAssignment.fulfilled, (state, action) => {
+                if (!action.payload?.id) {
+                    console.log('Delete could not complete')
+                    console.log(action.payload)
+                }
+            })
     }
-});
+})
 
-export const {addAssignments} = assignmentSlice.actions;
-export const getAllAssignments = (state) => state.assignments.assignments;
-export const getAssignmentsStatus = (state) => state.assignments.status;
-export const getAssignmentsError = (state) => state.assignments.error;
+export const {addAssignments, updateAssignments, deleteAssignments} = assignmentSlice.actions;
 
 export default assignmentSlice.reducer;

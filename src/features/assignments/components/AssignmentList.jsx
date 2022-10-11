@@ -3,8 +3,12 @@ import {AssignmentCard} from './AssignmentCard';
 import {LoadError} from "../../../pages/LoadError";
 import Typography from "@mui/material/Typography";
 import {useAxiosFetch} from "../hooks/useAxiosFetch";
+import {useAuth0} from "@auth0/auth0-react";
+import Button from "@mui/material/Button";
 
 export const AssignmentList = () => {
+    const {loginWithRedirect, logout, user, isAuthenticated, isLoading} = useAuth0();
+
     const [assignments, setAssignments] = useState([]);
 
     const {data, loading, error} = useAxiosFetch({
@@ -34,28 +38,38 @@ export const AssignmentList = () => {
         }
     }, [error]);
 
-    if (assignments.length > 0) {
-        return (
+        if (isAuthenticated) {
+            return (
                 <div>
                     {assignments.map((assignment, index) => (
                         <AssignmentCard key={index} assignment={assignment}/>
                     ))}
+                    <Typography>Welcome {user.name}</Typography>
+                    <Button variant="outlined" onClick={() => logout({returnTo: window.location.origin})}>
+                        Log Out
+                    </Button>
                 </div>
-        );
-    }
-    else if (loading) {
+            );
+
+    } else if (loading) {
         return (
             <Typography>Loading assignments...</Typography>
         )
-    }
-    else if (error) {
+    } else if (!isAuthenticated) {
         return (
-        <LoadError errorMessage={error} />
+        <>
+            <Button variant="contained" onClick={loginWithRedirect}>Log In</Button>
+            <br />
+            <br />
+        </>
         )
-    }
-    else {
+    } else if (error) {
         return (
-            <LoadError errorMessage="no assignments found, have you added one yet?" />
+            <LoadError errorMessage={error}/>
+        )
+    } else {
+        return (
+            <LoadError errorMessage="no assignments found, have you added one yet?"/>
         )
     }
 }
