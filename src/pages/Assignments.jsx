@@ -6,11 +6,8 @@ import {Navbar} from "../layouts/Navbar";
 import {Container, Grid} from "@mui/material";
 import {Link} from "react-router-dom";
 import {LoadError} from "./LoadError";
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 export const Assignments = () => {
-    const { user } = useAuth0();
-
     const [assignments, setAssignments] = useState([]);
 
     const {data, loading, error} = useAxiosFetch({
@@ -61,9 +58,6 @@ export const Assignments = () => {
                                 <AssignmentCard key={index} assignment={assignment}/>
                             ))}
                             <Button component={Link} to={`/`} variant="contained">Go back</Button>
-                            <img src={user.picture} alt={user.name} />
-                            <h2>{user.name}</h2>
-                            <p>{user.nickname}, {user.updated_at}</p>
                         </Grid>
                     </Container>
                 </main>
