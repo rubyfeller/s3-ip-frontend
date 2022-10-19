@@ -2,20 +2,26 @@ import React, {useEffect, useState} from 'react';
 import {AssignmentCard} from './AssignmentCard';
 import {LoadError} from "../../../pages/LoadError";
 import Typography from "@mui/material/Typography";
-import {useAxiosFetch} from "../hooks/useAxiosFetch";
 import {useAuth0} from "@auth0/auth0-react";
 import Button from "@mui/material/Button";
+import {useApi} from "../../../hooks/use-api";
 
 export const AssignmentList = () => {
-    const {loginWithRedirect, logout, user, isAuthenticated, isLoading} = useAuth0();
+    const {loginWithRedirect, user, isAuthenticated} = useAuth0();
 
     const [assignments, setAssignments] = useState([]);
 
-    const {data, loading, error} = useAxiosFetch({
-        method: "GET",
-        url: `/assignment/all`,
-        timeout: 2000
-    });
+    // const {data, loading, error} = useAxiosFetch({
+    //     method: "GET",
+    //     url: `/assignment/all`,
+    //     timeout: 2000
+    // });
+
+    const {
+        loading,
+        error,
+        data
+    } = useApi('/assignment/all');
 
     useEffect(() => {
         if (loading) {
@@ -38,16 +44,13 @@ export const AssignmentList = () => {
         }
     }, [error]);
 
-        if (isAuthenticated) {
+        if (assignments && isAuthenticated) {
             return (
                 <div>
                     {assignments.map((assignment, index) => (
                         <AssignmentCard key={index} assignment={assignment}/>
                     ))}
                     <Typography>Welcome {user.name}</Typography>
-                    <Button variant="outlined" onClick={() => logout({returnTo: window.location.origin})}>
-                        Log Out
-                    </Button>
                 </div>
             );
 
@@ -58,6 +61,7 @@ export const AssignmentList = () => {
     } else if (!isAuthenticated) {
         return (
         <>
+            <Typography>Login to view assignments</Typography>
             <Button variant="contained" onClick={loginWithRedirect}>Log In</Button>
             <br />
             <br />

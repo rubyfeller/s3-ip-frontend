@@ -4,23 +4,40 @@ import Typography from '@mui/material/Typography';
 import {Navbar} from "../layouts/Navbar";
 import {Container} from "@mui/material";
 import {Link} from "react-router-dom";
+import {useAuth0} from "@auth0/auth0-react";
+import {useEffect} from "react";
 
 export const Home = () => {
-    return (
-        <>
-            <Navbar/>
-            <main>
-                <Container maxWidth="sm">
-                    <Typography sx={{mt: 2}} variant="h3" align="center" color="textPrimary" gutterBottom>
-                        Assignments
-                    </Typography>
-                    <Button component={Link} to="/addAssignment" variant="contained">Add assignment</Button>
-                    <h1>List of assignments</h1>
-                    <AssignmentList/>
-                    <Button component={Link} to="/assignments" variant="contained" sx={{mb: 1}}>View all
-                        assignments</Button>
-                </Container>
-            </main>
-        </>
-    );
+
+    const {getAccessTokenSilently, isLoading} = useAuth0();
+
+
+    useEffect(() => {
+        const getToken = async () => {
+            const token = await getAccessTokenSilently();
+            localStorage.setItem("token", token);
+        }
+        getToken()
+            .catch(console.error);
+    }, [getAccessTokenSilently]);
+
+    if (!isLoading) {
+        return (
+            <>
+                <Navbar/>
+                <main>
+                    <Container maxWidth="sm">
+                        <Typography sx={{mt: 2}} variant="h3" align="center" color="textPrimary" gutterBottom>
+                            Assignments
+                        </Typography>
+                        <Button component={Link} to="/addAssignment" variant="contained">Add assignment</Button>
+                        <h1>List of assignments</h1>
+                        <AssignmentList/>
+                        <Button component={Link} to="/assignments" variant="contained" sx={{mb: 1}}>View all
+                            assignments</Button>
+                    </Container>
+                </main>
+            </>
+        );
+    }
 }

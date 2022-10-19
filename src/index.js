@@ -1,18 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {BrowserRouter, createBrowserRouter, Route, RouterProvider} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import './assets/index.css';
 import {App} from './App';
 import {store} from './features/assignments/store';
 import {Provider} from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import {ThemeProvider, createTheme} from "@mui/material";
-import {AssignmentAdd} from "./pages/AssignmentAdd";
-import {Assignments} from "./pages/Assignments";
-import {AssignmentDetail} from "./pages/AssignmentDetail";
-import PageNotFound from "./PageNotFound";
-import {AssignmentDelete} from "./pages/AssignmentDelete";
-import {AssignmentEdit} from "./pages/AssignmentEdit";
 import {Auth0Provider} from "@auth0/auth0-react";
 
 // const router = createBrowserRouter([
@@ -48,6 +42,7 @@ import {Auth0Provider} from "@auth0/auth0-react";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -66,6 +61,7 @@ root.render(
                     <Auth0Provider
                         domain={domain}
                         clientId={clientId}
+                        audience={audience}
                         redirectUri={window.location.origin}
                     >
                     <App/>

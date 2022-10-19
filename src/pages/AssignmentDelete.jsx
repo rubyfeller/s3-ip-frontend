@@ -5,10 +5,10 @@ import {Navbar} from "../layouts/Navbar";
 import {Container, Grid} from "@mui/material";
 import {useParams} from "react-router";
 import {Link, useNavigate} from "react-router-dom";
-import {AssignmentCard, useAxiosFetch} from '../features/assignments';
 import {LoadError} from "./LoadError";
-import {deleteAssignment, updateAssignment} from "../features/assignments/AssignmentSlice";
+import {deleteAssignment} from "../features/assignments/AssignmentSlice";
 import {useDispatch} from "react-redux";
+import {useApi} from "../hooks/use-api";
 
 export const AssignmentDelete = () => {
     const id = useParams();
@@ -16,10 +16,16 @@ export const AssignmentDelete = () => {
 
     const [assignment, setAssignment] = useState([]);
 
-    const {data, loading, error} = useAxiosFetch({
-        method: "GET",
-        url: `/assignment/${id.id}`
-    });
+    // const {data, loading, error} = useAxiosFetch({
+    //     method: "GET",
+    //     url: `/assignment/${id.id}`
+    // });
+
+    const {
+        loading,
+        error,
+        data
+    } = useApi(`/assignment/${id.id}`);
 
     const dispatch = useDispatch();
     const [deleteRequestStatus, setDeleteRequeststatus] = useState('idle');
@@ -59,7 +65,7 @@ export const AssignmentDelete = () => {
         }
     }
 
-    if (data.id) {
+    if (assignment) {
         return (
             <div>
                 <main>

@@ -1,20 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import {AssignmentCard, useAxiosFetch} from '../features/assignments';
+import {AssignmentCard} from '../features/assignments';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {Navbar} from "../layouts/Navbar";
 import {Container, Grid} from "@mui/material";
 import {Link} from "react-router-dom";
 import {LoadError} from "./LoadError";
+import { useApi } from '../hooks/use-api';
 
 export const Assignments = () => {
     const [assignments, setAssignments] = useState([]);
 
-    const {data, loading, error} = useAxiosFetch({
-        method: "GET",
-        url: `/assignment/all`,
-        timeout: 1000
-    });
+    // const {data, loading, error} = useAxiosFetch({
+    //     method: "GET",
+    //     url: `/assignment/all`,
+    //     headers: {
+    //         Authorization: `Bearer ${token}`
+    //     },
+    //     timeout: 1000
+    // });
+
+    const {
+        loading,
+        error,
+        data
+    } = useApi('/assignment/all');
 
     useEffect(() => {
         if (loading) {
@@ -38,7 +48,7 @@ export const Assignments = () => {
         }
     }, [error]);
 
-    if (assignments.length > 0) {
+    if (assignments) {
         return (
             <div>
                 <main>
@@ -67,8 +77,7 @@ export const Assignments = () => {
         return (
             <LoadError errorMessage={error}/>
         )
-    }
-    else {
+    } else {
         return (
             <LoadError errorMessage={"Something went wrong. Are there any assignments added?"}/>
         )

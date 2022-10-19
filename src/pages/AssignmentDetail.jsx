@@ -5,18 +5,25 @@ import {Navbar} from "../layouts/Navbar";
 import {Container, Grid} from "@mui/material";
 import {useParams} from "react-router";
 import {Link} from "react-router-dom";
-import {AssignmentCard, useAxiosFetch} from '../features/assignments';
+import {AssignmentCard} from '../features/assignments';
 import {LoadError} from "./LoadError";
+import {useApi} from "../hooks/use-api";
 
 export const AssignmentDetail = () => {
     const id = useParams();
 
     const [assignment, setAssignment] = useState([]);
 
-    const {data, loading, error} = useAxiosFetch({
-        method: "GET",
-        url: `/assignment/${id.id}`
-    });
+    // const {data, loading, error} = useAxiosFetch({
+    //     method: "GET",
+    //     url: `/assignment/${id.id}`
+    // });
+
+    const {
+        loading,
+        error,
+        data
+    } = useApi(`/assignment/${id.id}`);
 
     useEffect(() => {
         if (loading) {
@@ -39,7 +46,7 @@ export const AssignmentDetail = () => {
         }
     }, [error]);
 
-    if (data.id) {
+    if (assignment) {
         return (
             <div>
                 <main>
