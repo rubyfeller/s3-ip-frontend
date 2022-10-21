@@ -15,14 +15,26 @@ export const addAssignment = createAsyncThunk('assignment/add', async (initialAs
             console.log(res.data);
             return res.data;
         }).catch(err => {
-        console.log(err.response);
-        return err.response;
+        console.log(err);
+        return err;
     })
 });
 
 export const updateAssignment = createAsyncThunk('assignment/update/', async (updatedAssignment) => {
     api.put(`assignment/update/${updatedAssignment.id}`, updatedAssignment)
         .then(res => {
+            console.log(res.data);
+            return res.data;
+        }).catch(err => {
+        console.log(err.response);
+        return err.response;
+    })
+});
+
+export const acceptAssignment = createAsyncThunk('assignment/accept/', async ({id, executor}) => {
+    api.post(`assignment/accept/${id}`, {executor})
+        .then(res => {
+            console.log(executor);
             console.log(res.data);
             return res.data;
         }).catch(err => {
@@ -55,22 +67,29 @@ const assignmentSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(addAssignment.fulfilled, (state, action) => {
-            state.assignments.push(action.payload);
+            if (!action.payload?.id) {
+                console.log('Assignment could not be added');
+            }
         })
             .addCase(updateAssignment.fulfilled, (state, action) => {
                 if (!action.payload?.id) {
-                    console.log('Update could not complete')
+                    console.log('Update could not complete');
+                }
+            })
+            .addCase(acceptAssignment.fulfilled, (state, action) => {
+                if (!action.payload?.id) {
+                    console.log('Could not accept assignment');
                 }
             })
             .addCase(deleteAssignment.fulfilled, (state, action) => {
                 if (!action.payload?.id) {
-                    console.log('Delete could not complete')
+                    console.log('Delete could not complete');
                     console.log(action.payload)
                 }
             })
     }
 })
 
-export const {addAssignments, updateAssignments, deleteAssignments} = assignmentSlice.actions;
+export const {addAssignments, updateAssignments, acceptAssignments, deleteAssignments} = assignmentSlice.actions;
 
 export default assignmentSlice.reducer;
