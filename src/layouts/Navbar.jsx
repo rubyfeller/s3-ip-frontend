@@ -8,7 +8,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import CallIcon from '@mui/icons-material/Call';
@@ -22,8 +21,6 @@ export const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
     const {isAuthenticated, loginWithRedirect, isLoading, user, logout} = useAuth0();
-
-    const settings = isAuthenticated ? ['Profile', 'Account', 'Logout'] : ['Register', 'Login'];
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -49,7 +46,6 @@ export const Navbar = () => {
                             variant="h6"
                             noWrap
                             component="a"
-                            href="/"
                             sx={{
                                 mr: 2,
                                 display: {xs: 'none', md: 'flex'},
@@ -59,7 +55,9 @@ export const Navbar = () => {
                                 textDecoration: 'none',
                             }}
                         >
+                            <Link to={"/"} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
                             Assignments
+                            </Link>
                         </Typography>
 
                         <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -94,7 +92,7 @@ export const Navbar = () => {
                                 {pages.map((page) => (
                                     <MenuItem key={page} onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">
-                                            <Link to={`/${page}`}>
+                                            <Link to={`/${page}`} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
                                                 {page}
                                             </Link>
                                         </Typography>
@@ -107,7 +105,6 @@ export const Navbar = () => {
                             variant="h5"
                             noWrap
                             component="a"
-                            href=""
                             sx={{
                                 mr: 2,
                                 display: {xs: 'flex', md: 'none'},
@@ -122,14 +119,13 @@ export const Navbar = () => {
                         </Typography>
                         <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                             {pages.map((page) => (
-                                <Button
-                                    key={page}
-                                    href={page}
-                                    onClick={handleCloseNavMenu}
-                                    sx={{my: 2, color: 'white', display: 'block'}}
-                                >
-                                    {page}
-                                </Button>
+                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">
+                                        <Link to={`/${page}`} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
+                                            {page}
+                                        </Link>
+                                    </Typography>
+                                </MenuItem>
                             ))}
                         </Box>
 

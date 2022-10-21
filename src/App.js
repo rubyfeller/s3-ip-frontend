@@ -1,18 +1,5 @@
 import './assets/App.css';
-import {Link, Route, Routes} from 'react-router-dom'
-import {AssignmentList} from "./features/assignments";
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import {
-    Typography,
-    AppBar,
-    CssBaseline,
-    Toolbar,
-    Container
-} from "@mui/material";
-import Button from "@mui/material/Button";
-import {Navbar} from "./layouts/Navbar";
-import {useAuth0} from "@auth0/auth0-react";
-import {LoadError} from "./pages/LoadError";
+import {Route, Routes} from 'react-router-dom'
 import {Assignments} from "./pages/Assignments";
 import {Home} from "./pages/Home";
 import {ProtectedRoute} from "./components/protected-route";
@@ -21,6 +8,7 @@ import {AssignmentDetail} from "./pages/AssignmentDetail";
 import {AssignmentDelete} from "./pages/AssignmentDelete";
 import PageNotFound from "./PageNotFound";
 import {AssignmentAdd} from "./pages/AssignmentAdd";
+import {AssignmentAccept} from "./pages/AssignmentAccept";
 
 export const App = () => {
     return (
@@ -40,6 +28,10 @@ export const App = () => {
             />
             <Route path="/assignment/delete/:id" element={
                 <ProtectedRoute component={AssignmentDelete} loading/>
+            }
+            />
+            <Route path="/assignment/accept/:id" element={
+                <ProtectedRoute component={AssignmentAccept} loading/>
             }
             />
             <Route path="/addAssignment" element={

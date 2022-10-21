@@ -30,7 +30,7 @@ export const AssignmentList = () => {
     }, [loading]);
 
     useEffect(() => {
-        if (data) {
+        if (data && data.length > 0) {
             setAssignments(data);
             console.log(data);
         } else {

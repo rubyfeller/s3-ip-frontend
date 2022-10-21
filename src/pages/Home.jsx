@@ -9,16 +9,18 @@ import {useEffect} from "react";
 
 export const Home = () => {
 
-    const {getAccessTokenSilently, isLoading} = useAuth0();
+    const {isAuthenticated, getAccessTokenSilently, isLoading} = useAuth0();
 
 
     useEffect(() => {
-        const getToken = async () => {
-            const token = await getAccessTokenSilently();
-            localStorage.setItem("token", token);
+        if (isAuthenticated) {
+            const getToken = async () => {
+                const token = await getAccessTokenSilently();
+                localStorage.setItem("token", token);
+            }
+            getToken()
+                .catch(console.error);
         }
-        getToken()
-            .catch(console.error);
     }, [getAccessTokenSilently]);
 
     if (!isLoading) {

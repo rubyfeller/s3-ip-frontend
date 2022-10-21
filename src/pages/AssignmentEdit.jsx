@@ -71,13 +71,6 @@ export const AssignmentEdit = () => {
         }));
     }
 
-    const onUserIdChange = (event) => {
-        setAssignment((prevState) => ({
-            ...prevState,
-            userId: event.target.value,
-        }));
-    }
-
     const handleSubmit = (event) => {
         event.preventDefault();
         setSubmitted(true);
@@ -129,18 +122,6 @@ export const AssignmentEdit = () => {
                                 label="Description"
                                 variant="outlined"
                                 value={assignment.description || ''}
-                            />
-                            <br/>
-                            <TextField
-                                InputLabelProps={{shrink: true}}
-                                onChange={onUserIdChange}
-                                error={submitted && !assignment.userId}
-                                helperText={submitted && !assignment.userId ? "Please enter a user ID" : null}
-                                style={{width: "200px", margin: "5px"}}
-                                type="number"
-                                label="user ID"
-                                variant="outlined"
-                                value={assignment.userId || 0}
                             />
                             <br/>
                             <Button type="submit" variant="contained" color="primary">
