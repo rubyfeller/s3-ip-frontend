@@ -21,7 +21,7 @@ export const Home = () => {
             getToken()
                 .catch(console.error);
         }
-    }, [getAccessTokenSilently]);
+    }, [getAccessTokenSilently, isAuthenticated]);
 
     if (!isLoading) {
         return (
