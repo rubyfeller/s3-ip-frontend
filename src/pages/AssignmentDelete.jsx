@@ -28,7 +28,6 @@ export const AssignmentDelete = () => {
     } = useApi(`/assignment/${id.id}`);
 
     const dispatch = useDispatch();
-    const [deleteRequestStatus, setDeleteRequeststatus] = useState('idle');
 
     useEffect(() => {
         if (loading) {
@@ -55,13 +54,10 @@ export const AssignmentDelete = () => {
         event.preventDefault();
 
         try {
-            setDeleteRequeststatus('pending');
             dispatch(deleteAssignment(id.id));
             navigate("../");
         } catch (err) {
             console.log(err);
-        } finally {
-            setDeleteRequeststatus('idle');
         }
     }
 
