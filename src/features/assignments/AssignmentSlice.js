@@ -31,8 +31,8 @@ export const updateAssignment = createAsyncThunk('assignment/update/', async (up
     })
 });
 
-export const acceptAssignment = createAsyncThunk('assignment/accept/', async ({id, executor}) => {
-    api.post(`assignment/accept/${id}`, {executor})
+export const acceptAssignment = createAsyncThunk('assignment/accept/', async ({id, executor, executionDateTime, executionPrice}) => {
+    api.post(`assignment/accept/${id}`, {executor, executionDateTime, executionPrice})
         .then(res => {
             console.log(executor);
             console.log(res.data);

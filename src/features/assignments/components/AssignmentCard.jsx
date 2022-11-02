@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {Card, CardActions, CardContent, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 
-export const AssignmentCard = ({assignment: {id, title, description, creator, executor}}) => {
+export const AssignmentCard = ({assignment: {id, title, description, creator, executor, executionDateTime, executionPrice}}) => {
     return (
         <Card sx={{minWidth: 275, mb: 2}}>
             <CardContent>
@@ -17,7 +17,7 @@ export const AssignmentCard = ({assignment: {id, title, description, creator, ex
                     {description}
                 </Typography>
                 <Typography variant="body2">
-                    Assignment will be executed by: {executor}
+                    Assignment will be executed by: {executor} on {executionDateTime} for {executionPrice} EU
                 </Typography>
             </CardContent>
             <CardActions>

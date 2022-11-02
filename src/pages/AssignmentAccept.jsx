@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {Navbar} from "../layouts/Navbar";
-import {Container, Grid} from "@mui/material";
+import {Container, Grid, TextField} from "@mui/material";
 import {useParams} from "react-router";
 import {Link, useNavigate} from "react-router-dom";
 import {LoadError} from "./LoadError";
@@ -11,6 +11,9 @@ import {useDispatch} from "react-redux";
 import {useApi} from "../hooks/use-api";
 import {useAuth0} from "@auth0/auth0-react";
 import {AlertHandler} from "../layouts/AlertHandler";
+import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {DateTimePickerMui} from "../layouts/DateTimePickerMui";
 
 export const AssignmentAccept = () => {
     const id = useParams();
@@ -32,6 +35,9 @@ export const AssignmentAccept = () => {
 
     const dispatch = useDispatch();
     const [acceptRequestStatus, setAcceptRequestStatus] = useState('idle');
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [price, setPrice] = useState(0);
+
 
     useEffect(() => {
         if (loading) {
@@ -60,12 +66,24 @@ export const AssignmentAccept = () => {
         }, 2000);
     }
 
+    const handlePriceChange = (event) => {
+        setPrice(() => ({
+            price: event.target.value,
+        }));
+    };
+
+    const getNewDateTime = (newDateTime) => {
+        console.log("Coming from DateTimePicker:", newDateTime)
+        setSelectedDate(newDateTime);
+
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
         try {
             setAcceptRequestStatus('pending');
-            dispatch(acceptAssignment({id: id.id, executor: user.name}));
+            dispatch(acceptAssignment({id: id.id, executor: user.name, executionDateTime: selectedDate, executionPrice: price.price}));
             setAlertMessage("Successfully accepted assignment! Redirecting...");
             setAlertStatus("success");
             setAlertShow(true);
@@ -103,7 +121,22 @@ export const AssignmentAccept = () => {
                             <Typography sx={{mt: 2}} variant="h5" align="center" color="textSecondary" gutterBottom>
                                 Are you sure you want to accept assignment {assignment.id}?
                             </Typography>
-
+                            <Typography>Select date and time</Typography>
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DateTimePickerMui onChange={getNewDateTime}/>
+                            </LocalizationProvider>
+                            <Typography>Price for execution of assignment</Typography>
+                            <TextField
+                                onChange={handlePriceChange}
+                                style={{width: "200px", marginBottom: "3px"}}
+                                type="number"
+                                defaultValue={0}
+                                InputProps={{
+                                    inputProps: {min: 0}
+                                }}
+                                label="Price in euro"
+                                variant="outlined"
+                            />
                             <Button component={Link} onClick={handleSubmit} variant="contained"
                                     color="success">Accept assignment</Button>
                             <br/>
