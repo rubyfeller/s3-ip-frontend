@@ -2,7 +2,6 @@ import React from 'react';
 import {Stack, TextField} from "@mui/material";
 import {DateTimePicker} from "@mui/x-date-pickers";
 import {useState} from "react";
-import {getYear} from "date-fns";
 
 export const DateTimePickerMui = (props) => {
     const [selectedDate, setSelectedDate] = useState(new Date());

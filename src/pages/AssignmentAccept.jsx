@@ -34,7 +34,6 @@ export const AssignmentAccept = () => {
     } = useApi(`/assignment/${id.id}`);
 
     const dispatch = useDispatch();
-    const [acceptRequestStatus, setAcceptRequestStatus] = useState('idle');
     const [selectedDate, setSelectedDate] = useState(null);
     const [price, setPrice] = useState(0);
 
@@ -82,7 +81,6 @@ export const AssignmentAccept = () => {
         event.preventDefault();
 
         try {
-            setAcceptRequestStatus('pending');
             dispatch(acceptAssignment({id: id.id, executor: user.name, executionDateTime: selectedDate, executionPrice: price.price}));
             setAlertMessage("Successfully accepted assignment! Redirecting...");
             setAlertStatus("success");
@@ -94,8 +92,6 @@ export const AssignmentAccept = () => {
             setAlertShow(true);
             redirectWithTimeout();
             console.log(err);
-        } finally {
-            setAcceptRequestStatus('idle');
         }
     }
 
