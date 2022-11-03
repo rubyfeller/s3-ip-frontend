@@ -11,15 +11,6 @@ import { useApi } from '../hooks/use-api';
 export const Assignments = () => {
     const [assignments, setAssignments] = useState([]);
 
-    // const {data, loading, error} = useAxiosFetch({
-    //     method: "GET",
-    //     url: `/assignment/all`,
-    //     headers: {
-    //         Authorization: `Bearer ${token}`
-    //     },
-    //     timeout: 1000
-    // });
-
     const {
         loading,
         error,
