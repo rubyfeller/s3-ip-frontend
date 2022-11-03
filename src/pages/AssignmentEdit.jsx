@@ -20,12 +20,6 @@ export const AssignmentEdit = () => {
 
     const [assignment, setAssignment] = useState([]);
 
-    // const {data, loading, error} = useAxiosFetch({
-    //     method: "GET",
-    //     url: `/assignment/${id.id}`,
-    //     timeout: 1000
-    // });
-
     const {
         loading,
         error,

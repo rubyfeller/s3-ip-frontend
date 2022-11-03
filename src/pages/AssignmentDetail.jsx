@@ -14,11 +14,6 @@ export const AssignmentDetail = () => {
 
     const [assignment, setAssignment] = useState([]);
 
-    // const {data, loading, error} = useAxiosFetch({
-    //     method: "GET",
-    //     url: `/assignment/${id.id}`
-    // });
-
     const {
         loading,
         error,

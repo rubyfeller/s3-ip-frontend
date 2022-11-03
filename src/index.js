@@ -9,37 +9,6 @@ import reportWebVitals from './reportWebVitals';
 import {ThemeProvider, createTheme} from "@mui/material";
 import {Auth0Provider} from "@auth0/auth0-react";
 
-// const router = createBrowserRouter([
-//     {
-//         path: "/",
-//         element: App()
-//     },
-//     {
-//         path: "/assignments",
-//         element: <Assignments/>,
-//     },
-//     {
-//         path: "/assignment/edit/:id",
-//         element: <AssignmentEdit/>,
-//     },
-//     {
-//         path: "/assignment/:id",
-//         element: <AssignmentDetail/>
-//     },
-//     {
-//         path: "/assignment/delete/:id",
-//         element: <AssignmentDelete/>
-//     },
-//     {
-//         path: "/addAssignment",
-//         element: <AssignmentAdd/>,
-//     },
-//     {
-//         path: "*",
-//         element: <PageNotFound/>
-//     },
-// ]);
-
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const audience = process.env.REACT_APP_AUTH0_AUDIENCE;

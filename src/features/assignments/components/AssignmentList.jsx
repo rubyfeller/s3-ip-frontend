@@ -11,12 +11,6 @@ export const AssignmentList = () => {
 
     const [assignments, setAssignments] = useState([]);
 
-    // const {data, loading, error} = useAxiosFetch({
-    //     method: "GET",
-    //     url: `/assignment/all`,
-    //     timeout: 2000
-    // });
-
     const {
         loading,
         error,
