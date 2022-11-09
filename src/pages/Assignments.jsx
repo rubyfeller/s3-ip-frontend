@@ -7,15 +7,17 @@ import {Container, Grid} from "@mui/material";
 import {Link} from "react-router-dom";
 import {LoadError} from "./LoadError";
 import { useApi } from '../hooks/use-api';
+import {useAuth0} from "@auth0/auth0-react";
 
 export const Assignments = () => {
     const [assignments, setAssignments] = useState([]);
+    const {user} = useAuth0();
 
     const {
         loading,
         error,
         data
-    } = useApi('/assignment/all');
+    } = useApi(`/assignment/getByUserId/${user.sub}`);
 
     useEffect(() => {
         if (loading) {
@@ -53,7 +55,7 @@ export const Assignments = () => {
                             style={{minHeight: '100vh'}}
                         >
                             <Typography sx={{mt: 2}} variant="h3" align="center" color="textPrimary" gutterBottom>
-                                Assignments
+                                My assignments
                             </Typography>
                             {assignments.map((assignment, index) => (
                                 <AssignmentCard key={index} assignment={assignment}/>

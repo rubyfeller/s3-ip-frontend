@@ -126,7 +126,7 @@ export const AssignmentAccept = () => {
                                 onChange={handlePriceChange}
                                 style={{width: "200px", marginBottom: "3px"}}
                                 type="number"
-                                defaultValue={0}
+                                defaultValue={assignment.executionPrice || 0}
                                 InputProps={{
                                     inputProps: {min: 0}
                                 }}

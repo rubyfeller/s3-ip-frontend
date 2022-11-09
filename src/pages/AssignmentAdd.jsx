@@ -94,7 +94,7 @@ export const AssignmentAdd = () => {
                         onChange={onDescriptionChange}
                         error={!!(submitted && !assignment.description)}
                         helperText={submitted && !assignment.description ? "Please enter a description" : null}
-                        style={{width: "200px", margin: "5px"}}
+                        style={{width: "600px", margin: "5px"}}
                         type="text"
                         label="Description"
                         variant="outlined"
