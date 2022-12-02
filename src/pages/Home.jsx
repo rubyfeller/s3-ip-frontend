@@ -23,7 +23,7 @@ export const Home = () => {
             getToken()
                 .catch(console.error);
         }
-    }, [getAccessTokenSilently, isAuthenticated]);
+    }, [getAccessTokenSilently, isAuthenticated, user]);
 
     if (!isLoading) {
         return (
