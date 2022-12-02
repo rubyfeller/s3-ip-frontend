@@ -6,7 +6,7 @@ import {Navbar} from "../layouts/Navbar";
 import {Container, Grid} from "@mui/material";
 import {Link} from "react-router-dom";
 import {LoadError} from "./LoadError";
-import { useApi } from '../hooks/use-api';
+import {useApi} from '../hooks/use-api';
 import {useAuth0} from "@auth0/auth0-react";
 
 export const Assignments = () => {
@@ -26,7 +26,7 @@ export const Assignments = () => {
     }, [loading]);
 
     useEffect(() => {
-        if (data) {
+        if (data && data.length > 0) {
             setAssignments(data);
             console.log(data);
         } else {
@@ -41,7 +41,26 @@ export const Assignments = () => {
         }
     }, [error]);
 
-    if (assignments) {
+    function AssignmentCards() {
+        if (assignments) {
+            return (
+                <div>
+                    {assignments.map((assignment, index) => (
+                        <AssignmentCard key={index} assignment={assignment}/>
+                    ))}
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Typography sx={{mt: 2}} variant="h6" align="center">Something went wrong. Are there any assignments
+                        added?</Typography>
+                </div>
+            )
+        }
+    }
+
+    if (!loading) {
         return (
             <div>
                 <main>
@@ -57,22 +76,20 @@ export const Assignments = () => {
                             <Typography sx={{mt: 2}} variant="h3" align="center" color="textPrimary" gutterBottom>
                                 My assignments
                             </Typography>
-                            {assignments.map((assignment, index) => (
-                                <AssignmentCard key={index} assignment={assignment}/>
-                            ))}
+                            <AssignmentCards/>
                             <Button component={Link} to={`/`} variant="contained">Go back</Button>
                         </Grid>
                     </Container>
                 </main>
             </div>
-        );
+        )
+    } else if (loading) {
+        return (
+            <Typography>Loading assignments...</Typography>
+        )
     } else if (error) {
         return (
             <LoadError errorMessage={error}/>
-        )
-    } else {
-        return (
-            <LoadError errorMessage={"Something went wrong. Are there any assignments added?"}/>
         )
     }
 }

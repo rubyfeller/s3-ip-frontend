@@ -9,13 +9,15 @@ import {useEffect} from "react";
 
 export const Home = () => {
 
-    const {isAuthenticated, getAccessTokenSilently, isLoading} = useAuth0();
+    const {isAuthenticated, getAccessTokenSilently, user, isLoading} = useAuth0();
 
 
     useEffect(() => {
         if (isAuthenticated) {
             const getToken = async () => {
                 const token = await getAccessTokenSilently();
+                const role = user["/roles"][0];
+                localStorage.setItem("role", role);
                 localStorage.setItem("token", token);
             }
             getToken()
