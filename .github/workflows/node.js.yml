@@ -27,6 +27,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+  lighthouseci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install && npm install -g @lhci/cli@0.6.x
+      - run: npm run build
+      - run: lhci autorun
+    env:
+    LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
   build:
 
     runs-on: ubuntu-latest
