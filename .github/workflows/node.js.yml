@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - run: npm ci && npm install -g @lhci/cli@0.6.x
+      - run: npm ci && npm install
       - run: npm run build --if-present
       - run: lhci autorun
         env:
