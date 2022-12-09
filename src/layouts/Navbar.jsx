@@ -55,8 +55,8 @@ export const Navbar = () => {
                                 textDecoration: 'none',
                             }}
                         >
-                            <Link to={"/"} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
-                            Assignments
+                            <Link to={"/"} style={{textDecoration: 'none', color: '#FFFFFF'}}>
+                                Assignments
                             </Link>
                         </Typography>
 
@@ -92,7 +92,7 @@ export const Navbar = () => {
                                 {pages.map((page) => (
                                     <MenuItem key={page} onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">
-                                            <Link to={`/${page}`} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
+                                            <Link to={`/${page}`} style={{textDecoration: 'none', color: '#000000'}}>
                                                 {page}
                                             </Link>
                                         </Typography>
@@ -121,7 +121,7 @@ export const Navbar = () => {
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">
-                                        <Link to={`/${page}`} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
+                                        <Link to={`/${page}`} style={{textDecoration: 'none', color: '#FFFFFF'}}>
                                             {page}
                                         </Link>
                                     </Typography>

@@ -44,4 +44,9 @@ export const Home = () => {
             </>
         );
     }
+    else {
+        return(
+            <p>Loading...</p>
+        )
+    }
 }
