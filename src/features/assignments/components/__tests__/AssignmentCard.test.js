@@ -21,7 +21,7 @@ test('should render AssignmentCard component that is not picked up yet', () => {
 })
 
 test('should render AssignmentCard component that is accepted by a company', () => {
-    // Act
+    // Arrange
     const assignment = {
         id: 1,
         title: "test",
@@ -32,10 +32,11 @@ test('should render AssignmentCard component that is accepted by a company', () 
         executionPrice: "5"
     };
 
+    // Act
     render(<AssignmentCard assignment={assignment}/>, {wrapper: MemoryRouter});
     const assignmentCard = screen.getByTestId(`assignmentcard-${assignment.id}`)
 
-    //Assert
+    // Assert
     expect(assignmentCard).toBeInTheDocument();
     expect(assignmentCard).toHaveTextContent("test");
     expect(assignmentCard).toHaveTextContent("Piet");
