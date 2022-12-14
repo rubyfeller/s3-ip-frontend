@@ -1,3 +1,34 @@
+# Deployment instructions (Docker)
+Pull the Docker image:
+````
+docker pull ghcr.io/rubyfeller/s3-ip-frontend:main
+````
+
+Note: main tag will pull the latest version. It's also possible to use older versions with the SHA as a tag.
+
+Run the container:
+````
+docker run -p 3000:3000 -d ghcr.io/rubyfeller/s3-ip-frontend:main
+````
+
+The application will (and should) run on port 3000.
+
+Please note the application uses multiple environment variables. You can link these at once to Docker with the following command:
+
+````
+docker run --env-file ./.env  -p 3000:3000 -d ghcr.io/rubyfeller/s3-ip-frontend:main
+````
+
+The .env file needs to contain 3 key-pairs:
+
+REACT_APP_AUTH0_DOMAIN
+
+REACT_APP_AUTH0_CLIENT_ID
+
+REACT_APP_AUTH0_AUDIENCE
+
+You can retrieve these keys by creating an account + application at [Auth0](https://auth0.com/).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
